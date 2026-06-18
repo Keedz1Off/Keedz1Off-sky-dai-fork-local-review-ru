@@ -3,33 +3,33 @@
 ## L1TokenBridge.bridgeERC20(...)
 
 ```text
-INVARIANT
-The intended recipient must be preserved.
+ИНВАРИАНТ
+Предназначенный получатель должен быть сохранен.
 
-CONSEQUENCES
+ПОСЛЕДСТВИЯ
 
 ```
 
 ## L1TokenBridge._initiateBridgeERC20(...)
 
 ```text
-INVARIANT
-L1 escrowed amount must equal L2 minted amount.
-The L1 token must map to the correct L2 token.
-The deposit message must target the correct L2 bridge.
+ИНВАРИАНТ
+Количество токенов в L1 Escrow должно равняться количеству токенов, заминченному на L2.
+L1 token должен соответствовать правильному L2 token.
+Deposit message должен указывать на правильный L2 bridge.
 
-CONSEQUENCES
+ПОСЛЕДСТВИЯ
 
 ```
 
 ## L2TokenBridge.finalizeBridgeERC20(...)
 
 ```text
-INVARIANT
-Only an authentic L1 -> L2 message can mint L2 tokens.
-Minted amount must equal the L1 escrowed amount.
-Minted token must be the correct L2 token for the L1 token.
+ИНВАРИАНТ
+Только подлинное сообщение L1 -> L2 может mint L2 токены.
+Заминченное количество должно равняться количеству токенов в L1 Escrow.
+Заминченный токен должен быть правильным L2 token для L1 token.
 
-CONSEQUENCES
+ПОСЛЕДСТВИЯ
 
 ```

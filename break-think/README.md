@@ -5,13 +5,13 @@
 Формат:
 
 ```text
-INVARIANT
+ИНВАРИАНТ
 
-CONSEQUENCES
+ПОСЛЕДСТВИЯ
 ```
 
 Главный фокус:
 
 ```text
-main invariants first
+сначала главные инварианты
 ```

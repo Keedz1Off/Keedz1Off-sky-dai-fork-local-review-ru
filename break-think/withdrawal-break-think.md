@@ -3,33 +3,33 @@
 ## L2TokenBridge.bridgeERC20(...)
 
 ```text
-INVARIANT
-The intended L1 recipient must be preserved.
+ИНВАРИАНТ
+Предназначенный L1 получатель должен быть сохранен.
 
-CONSEQUENCES
+ПОСЛЕДСТВИЯ
 
 ```
 
 ## L2TokenBridge._initiateBridgeERC20(...)
 
 ```text
-INVARIANT
-L2 burned amount must equal L1 released amount.
-The L2 token must map to the correct L1 token.
-The withdrawal message must be created only after the burn step.
+ИНВАРИАНТ
+Количество сожженных токенов на L2 должно равняться количеству токенов, выданному на L1.
+L2 token должен соответствовать правильному L1 token.
+Withdrawal message должен создаваться только после burn step.
 
-CONSEQUENCES
+ПОСЛЕДСТВИЯ
 
 ```
 
 ## L1TokenBridge.finalizeBridgeERC20(...)
 
 ```text
-INVARIANT
-Only an authentic L2 -> L1 message can release L1 tokens.
-Released amount must equal the L2 burned amount.
-Released token must be the correct L1 token for the L2 token.
+ИНВАРИАНТ
+Только подлинное сообщение L2 -> L1 может выдать L1 токены.
+Выданное количество должно равняться количеству токенов, сожженных на L2.
+Выданный токен должен быть правильным L1 token для L2 token.
 
-CONSEQUENCES
+ПОСЛЕДСТВИЯ
 
 ```
