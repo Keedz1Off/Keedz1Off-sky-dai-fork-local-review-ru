@@ -3,38 +3,49 @@
 ## L1TokenBridge.bridgeERC20(...)
 
 ```text
-ИНВАРИАНТ
-Предназначенный получатель должен быть сохранен.
+INVARIANT
+1. The intended recipient must be preserved.
 
-ПОСЛЕДСТВИЯ
-L1 токены будут отправлены в Escrow, а L2 токены могут быть заминчены неправильному получателю.
-Пользователь может потерять доступ к своим средствам на L2.
+CONSEQUENCES
+
+1. L1 tokens will be sent to Escrow and may become stuck, or L2 tokens may be minted to the wrong recipient.
+```
+
+## L1TokenBridge.bridgeERC20To(...)
+
+```text
+INVARIANT
+The custom recipient must be preserved.
+
+CONSEQUENCES
+
+1. L1 tokens may be locked in Escrow, but the L2 mint may go to the wrong recipient.
 ```
 
 ## L1TokenBridge._initiateBridgeERC20(...)
 
 ```text
-ИНВАРИАНТ
-Количество токенов в L1 Escrow должно равняться количеству токенов, заминченному на L2.
-L1 token должен соответствовать правильному L2 token.
-Deposit message должен указывать на правильный L2 bridge.
+INVARIANT
+L1 escrowed amount must equal L2 minted amount.
+The L1 token must map to the correct L2 token.
+The deposit message must target the correct L2 bridge.
 
-ПОСЛЕДСТВИЯ
-L2 может mint больше токенов, чем реально находится в Escrow на L1.
-Пользователь может получить неправильный token вместо intended token.
-Сообщение может исполниться в неправильном bridge или failed.
+CONSEQUENCES
+1. If this invariant breaks, L2 may mint more or less tokens than were actually locked in Escrow on L1.
+2. The token on L1 does not match the token on L2.
+3. Wrong finalize function can execute the wrong bridge message.
 ```
 
 ## L2TokenBridge.finalizeBridgeERC20(...)
 
 ```text
-ИНВАРИАНТ
-Только подлинное сообщение L1 -> L2 может mint L2 токены.
-Заминченное количество должно равняться количеству токенов в L1 Escrow.
-Заминченный токен должен быть правильным L2 token для L1 token.
+INVARIANT
+1. Only an authentic L1 -> L2 message can mint L2 tokens.
+2. Minted amount must equal the L1 escrowed amount.
+3. Minted token must be the correct L2 token for the L1 token.
 
-ПОСЛЕДСТВИЯ
-Это может привести к ghost mint.
-Bridge может mint больше токенов, чем реально locked in Escrow.
-Пользователь может получить неправильный token вместо intended token.
+CONSEQUENCES
+1. This may lead to ghost mint.
+2. The bridge may mint more or less tokens than were actually locked in Escrow.
+3. A user may receive the wrong token.
 ```

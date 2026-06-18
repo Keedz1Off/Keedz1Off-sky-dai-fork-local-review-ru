@@ -1,6 +1,6 @@
 ﻿# Function Review: L2TokenBridge.finalizeBridgeERC20(...)
 
-## Код функции
+## Function Code
 
 ```solidity
 function finalizeBridgeERC20(
@@ -20,12 +20,46 @@ function finalizeBridgeERC20(
 }
 ```
 
-## Что делает
-
-Финализирует L1 -> L2 deposit на L2.
+Note:
 
 ```text
-authentic L1 message -> mint L2 tokens
+Original source: makerdao/op-token-bridge/src/L2TokenBridge.sol
+```
+
+## Что делает эта функция
+
+Она finalizes L1 -> L2 deposit на L2.
+
+Простой смысл:
+
+```text
+L2 bridge receives an authentic message from L1 bridge and mints L2 tokens.
+```
+
+## Важные моменты логики
+
+### Auth Boundary
+
+```solidity
+onlyOtherBridge
+```
+
+Эта функция должна выполняться только через messenger path от L1 bridge.
+
+Users не должны иметь возможность вызвать ее напрямую.
+
+### Mint
+
+```solidity
+TokenLike(_localToken).mint(_to, _amount);
+```
+
+Это создает L2 tokens для recipient.
+
+Простой смысл:
+
+```text
+locked on L1 -> minted on L2
 ```
 
 ## Main Invariants
@@ -34,4 +68,12 @@ authentic L1 message -> mint L2 tokens
 1. Only an authentic L1 -> L2 message can mint L2 tokens.
 2. Minted amount must equal the L1 escrowed amount.
 3. Minted token must be the correct L2 token for the L1 token.
+```
+
+## Additional Invariants / Checks
+
+```text
+The recipient must be the intended recipient.
+The finalize call must come through onlyOtherBridge.
+The emitted event should match the finalized transfer.
 ```
